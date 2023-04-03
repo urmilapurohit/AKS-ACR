@@ -1,0 +1,23 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:  
+  name: deploy1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: demo          #same
+  template:
+    metadata:
+      name: tmp1
+      labels:
+        name: demo        #same
+    spec:
+      containers:
+        - name: cnt
+          image:  myacrforfun.azurecr.io/demo:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+      imagePullSecrets:
+        - name: myacrforfun-secret           
